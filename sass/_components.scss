@@ -733,6 +733,76 @@
   margin-bottom: 0;
 }
 
+// ---- GitHub action buttons (landing page) ----
+.gh-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  margin: $space-6 0;
+}
+
+.gh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-2 $space-4;
+  font-family: $font-family-headline;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: $radius-sm;
+  background: var(--color-accent);
+  color: #fff;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: var(--color-accent-hover);
+    color: #fff;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.gh-btn--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--border-subtle);
+
+  &:hover {
+    background: var(--hover-bg);
+    color: var(--color-text);
+  }
+}
+
+// ---- GitHub edit link (pages + sections) ----
+.gh-edit {
+  margin-top: $space-8;
+  padding-top: $space-5;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.gh-edit__link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: $font-family-headline;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: var(--color-text-muted);
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--color-accent);
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
 // ---- PDF download link ----
 .pdf-download {
   display: inline-flex;
