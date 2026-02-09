@@ -1,10 +1,41 @@
-{# Simple footer with legal links #}
+{# Multi-column footer with brandmark, nav, and copyright #}
 {% macro site_footer(lang) %}
 <footer class="site-footer">
-  <div class="site-footer__links">
-    <a href="/governance/">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
-    <a href="/policies/datenschutz/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+  <div class="site-footer__brand">
+    <p class="site-footer__wordmark">
+      {% if lang == "fr" %}le futur.{% elif lang == "it" %}il futuro.{% elif lang == "en" %}the future.{% else %}die zukunft.{% endif %}
+    </p>
+    <p class="site-footer__subline">{{ config.extra.org_subtitle | default(value="Kollektiv") }}</p>
   </div>
-  <p class="site-footer__copy">&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | default(value="Die Zukunft") }}. {{ trans(key="footer_copyright", lang=lang) | default(value="Alle Rechte vorbehalten.") }}</p>
+
+  <nav class="site-footer__columns" aria-label="Footer">
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Kollektiv</p>
+      <a href="/governance/">{{ trans(key="nav_governance", lang=lang) | default(value="Governance") }}</a>
+      <a href="/finance/">{{ trans(key="nav_finance", lang=lang) | default(value="Finanzen") }}</a>
+      <a href="/policies/">{{ trans(key="nav_policies", lang=lang) | default(value="Policies") }}</a>
+      <a href="/changelog/">{{ trans(key="nav_changelog", lang=lang) | default(value="Changelog") }}</a>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Mitmachen</p>
+      <a href="/join/">{{ trans(key="nav_join", lang=lang) | default(value="Mitmachen") }}</a>
+      <a href="/volunteer/">{{ trans(key="nav_volunteer", lang=lang) | default(value="Volunteer") }}</a>
+      <a href="/press/">{{ trans(key="nav_press", lang=lang) | default(value="Presse") }}</a>
+      <a href="https://die-zukunft.ch/kontakt">Kontakt</a>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Rechtliches</p>
+      <a href="https://die-zukunft.ch/impressum">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
+      <a href="/policies/privacy/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+      <a href="https://die-zukunft.ch">die-zukunft.ch</a>
+    </div>
+  </nav>
+
+  <p class="site-footer__copy">&copy; {{ now() | date(format="%Y") }}
+    {% if lang == "fr" %}Le Futur{% elif lang == "it" %}Il Futuro{% elif lang == "en" %}The Future{% else %}Die Zukunft{% endif %}.
+    {{ trans(key="footer_copyright", lang=lang) | default(value="Alle Rechte vorbehalten.") }}
+  </p>
 </footer>
 {% endmacro %}
