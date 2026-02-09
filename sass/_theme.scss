@@ -31,7 +31,10 @@
   --switch-knob: #ffffff;
 
   // Sidebar
-  --sidebar-bg: var(--color-surface);
+  --sidebar-bg: #ffffff;
+
+  // Paper (content area)
+  --paper-bg: #faf8f5;
 
   // Status badges
   --status-draft: #f59e0b;
@@ -65,6 +68,8 @@
   --switch-knob: rgba(255, 255, 255, 0.18);
 
   --sidebar-bg: var(--color-surface);
+
+  --paper-bg: #161412;
 
   --status-draft: #fbbf24;
   --status-ratified: #4ade80;

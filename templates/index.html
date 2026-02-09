@@ -8,6 +8,12 @@
   {% endif %}
 </div>
 
+{% if section.content %}
+<div class="prose">
+  {{ section.content | safe }}
+</div>
+{% endif %}
+
 {% if section.extra.sections %}
 <div class="section-grid">
   {% for item in section.extra.sections %}

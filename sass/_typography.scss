@@ -51,25 +51,39 @@ strong {
   font-weight: $font-weight-semibold;
 }
 
+// ---- Document content area: serif body ----
+.site-main {
+  font-family: $font-family-document;
+  font-size: $font-size-base;
+}
+
 // ---- Prose: long-form markdown content ----
 .prose {
   h2 {
     margin-top: $space-7;
     margin-bottom: $space-4;
+    font-family: $font-family-headline;
+    font-size: $font-size-2xl;
+    padding-bottom: $space-3;
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   h3 {
     margin-top: $space-6;
     margin-bottom: $space-3;
+    font-family: $font-family-headline;
+    font-size: $font-size-xl;
   }
 
   h4 {
     margin-top: $space-5;
     margin-bottom: $space-3;
+    font-family: $font-family-headline;
+    font-size: $font-size-lg;
   }
 
   p, li {
-    line-height: 1.7;
+    line-height: 1.8;
   }
 
   ul, ol {
@@ -83,15 +97,17 @@ strong {
   }
 
   blockquote {
-    border-left: 3px solid var(--color-accent);
+    border-left: 2px solid var(--color-text-muted);
     padding-left: $space-5;
-    margin: $space-5 0;
+    margin: $space-6 0;
     color: var(--color-text-muted);
     font-style: italic;
+    font-size: $font-size-lg;
   }
 
   code {
-    font-size: 0.9em;
+    font-family: $font-family-mono;
+    font-size: 0.85em;
     padding: 0.15em 0.4em;
     background: var(--hover-bg);
     border-radius: $radius-sm;
@@ -100,7 +116,7 @@ strong {
   pre {
     background: var(--color-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: $radius-md;
+    border-radius: $radius-sm;
     padding: $space-4;
     overflow-x: auto;
     margin: $space-5 0;
@@ -116,16 +132,22 @@ strong {
     width: 100%;
     border-collapse: collapse;
     margin: $space-5 0;
+    font-size: $font-size-sm;
 
     th, td {
       padding: $space-3 $space-4;
-      border: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
       text-align: left;
     }
 
     th {
-      background: var(--color-surface);
+      font-family: $font-family-headline;
       font-weight: $font-weight-semibold;
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-muted);
+      border-bottom: 2px solid var(--border-subtle);
     }
   }
 
@@ -136,7 +158,11 @@ strong {
   }
 
   a {
-    font-weight: $font-weight-medium;
+    font-weight: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-accent);
   }
 
   strong {

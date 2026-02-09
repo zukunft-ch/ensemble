@@ -173,18 +173,24 @@
 // ---- Page header ----
 .page-header {
   margin-bottom: $space-6;
+  padding-bottom: $space-5;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .page-header__title {
-  font-size: $font-size-4xl;
+  font-family: $font-family-headline;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
   margin-bottom: $space-3;
-  @include gradient-text();
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .page-header__desc {
+  font-family: $font-family-document;
   font-size: $font-size-lg;
   color: var(--color-text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 0;
 }
 
@@ -193,15 +199,19 @@
   display: flex;
   align-items: center;
   gap: $space-2;
+  font-family: $font-family-headline;
   font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
   color: var(--color-text-muted);
   margin-bottom: $space-5;
   flex-wrap: wrap;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .breadcrumb__sep {
   color: var(--color-text-muted);
-  opacity: 0.5;
+  opacity: 0.35;
 }
 
 .breadcrumb a {
@@ -219,7 +229,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: $space-3;
-  font-size: $font-size-sm;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   color: var(--color-text-muted);
   margin-bottom: $space-5;
   padding-bottom: $space-4;
@@ -231,73 +242,81 @@
   display: inline-flex;
   align-items: center;
   gap: $space-1;
-  padding: $space-1 $space-3;
+  padding: 2px $space-2;
+  font-family: $font-family-headline;
   font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: $radius-pill;
+  letter-spacing: 0.06em;
+  border-radius: $radius-sm;
   line-height: 1.4;
 }
 
 .status-badge--draft {
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.12);
   color: var(--status-draft);
 }
 
 .status-badge--ratified {
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(34, 197, 94, 0.12);
   color: var(--status-ratified);
 }
 
 .status-badge--superseded {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.12);
   color: var(--status-superseded);
 }
 
 // ---- Hash verify (SHA256 display) ----
 .hash-verify {
   background: var(--color-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
   padding: $space-4;
-  margin: $space-5 0;
-  font-size: $font-size-xs;
+  margin: $space-6 0;
 }
 
 .hash-verify__label {
+  font-family: $font-family-headline;
   font-weight: $font-weight-semibold;
+  font-size: $font-size-xs;
   margin-bottom: $space-2;
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .hash-verify__value {
-  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
   word-break: break-all;
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 // ---- Document list (section index) ----
 .doc-list {
   display: flex;
   flex-direction: column;
-  gap: $space-4;
+  gap: 0;
 }
 
 .doc-card {
   display: block;
-  padding: $space-5;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: $radius-lg;
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  padding: $space-5 0;
+  background: transparent;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: padding-left $transition-fast;
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px var(--shadow-color);
+    padding-left: $space-3;
   }
 }
 
@@ -309,12 +328,14 @@
 }
 
 .doc-card__title {
+  font-family: $font-family-headline;
   font-size: $font-size-lg;
   font-weight: $font-weight-semibold;
   color: var(--color-text);
 }
 
 .doc-card__desc {
+  font-family: $font-family-document;
   font-size: $font-size-sm;
   color: var(--color-text-muted);
   margin-bottom: 0;
@@ -322,6 +343,7 @@
 }
 
 .doc-card__date {
+  font-family: $font-family-mono;
   font-size: $font-size-xs;
   color: var(--color-text-muted);
   margin-top: $space-2;
@@ -331,10 +353,11 @@
 .section-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: $space-4;
+  gap: $space-5;
 
   @media (max-width: $bp-md) {
     grid-template-columns: 1fr;
+    gap: $space-4;
   }
 }
 
@@ -343,29 +366,29 @@
   flex-direction: column;
   gap: $space-2;
   padding: $space-5;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: $radius-lg;
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  background: var(--color-surface);
+  border-radius: $radius-sm;
+  transition: box-shadow $transition-normal;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px var(--shadow-color);
+    box-shadow: 0 4px 16px var(--shadow-color);
   }
 }
 
 .section-card__icon {
-  font-size: $font-size-3xl;
+  font-size: $font-size-2xl;
   line-height: 1;
 }
 
 .section-card__title {
+  font-family: $font-family-headline;
   font-size: $font-size-lg;
   font-weight: $font-weight-semibold;
   color: var(--color-text);
 }
 
 .section-card__desc {
+  font-family: $font-family-document;
   font-size: $font-size-sm;
   color: var(--color-text-muted);
   margin-bottom: 0;
@@ -375,17 +398,19 @@
 // ---- Table of contents ----
 .toc {
   background: var(--color-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
   padding: $space-4 $space-5;
   margin-bottom: $space-6;
 }
 
 .toc__title {
-  font-size: $font-size-sm;
+  font-family: $font-family-headline;
+  font-size: $font-size-xs;
   font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: $space-3;
-  color: var(--color-text);
+  color: var(--color-text-muted);
 }
 
 .toc ul {
@@ -400,6 +425,7 @@
 }
 
 .toc li {
+  font-family: $font-family-document;
   font-size: $font-size-sm;
 
   a {
@@ -423,21 +449,21 @@
 }
 
 .changelog__date {
+  font-family: $font-family-mono;
   font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
   margin-bottom: $space-2;
 }
 
 .changelog__title {
+  font-family: $font-family-headline;
   font-size: $font-size-xl;
   font-weight: $font-weight-bold;
   margin-bottom: $space-2;
 }
 
 .changelog__text {
+  font-family: $font-family-document;
   color: var(--color-text-muted);
   line-height: 1.6;
   margin-bottom: 0;
@@ -486,12 +512,13 @@
   justify-content: center;
   gap: $space-2;
   padding: $space-3 $space-6;
-  font-size: $font-size-base;
+  font-family: $font-family-headline;
+  font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   color: #fff;
   background: var(--color-accent);
   border: none;
-  border-radius: $radius-pill;
+  border-radius: $radius-sm;
   cursor: pointer;
   transition: background $transition-fast, transform $transition-fast, box-shadow $transition-fast;
 
@@ -509,13 +536,13 @@
 
 .btn--sm {
   padding: $space-2 $space-4;
-  font-size: $font-size-sm;
+  font-size: $font-size-xs;
 }
 
 .btn--outline {
   background: transparent;
   color: var(--color-text);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border-subtle);
 
   &:hover {
     background: var(--hover-bg);
@@ -538,15 +565,15 @@
 
 // ---- Callout block ----
 .callout {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--color-surface);
   border-left: 3px solid var(--color-accent);
-  border-radius: $radius-md;
+  border-radius: $radius-sm;
   padding: $space-5;
   margin: $space-5 0;
 }
 
 .callout__title {
+  font-family: $font-family-headline;
   font-weight: $font-weight-semibold;
   margin-bottom: $space-2;
 }
@@ -561,10 +588,12 @@
     justify-content: space-between;
     gap: $space-4;
     cursor: pointer;
+    font-family: $font-family-headline;
     font-weight: $font-weight-medium;
     font-size: $font-size-lg;
-    padding: $space-4 $space-5;
+    padding: $space-4 0;
     list-style: none;
+    border-bottom: 1px solid var(--border-subtle);
 
     &::-webkit-details-marker {
       display: none;
@@ -585,7 +614,7 @@
 }
 
 .faq__answer {
-  padding: 0 $space-5 $space-5;
+  padding: $space-4 0 $space-5;
   color: var(--color-text-muted);
   line-height: 1.7;
 
@@ -596,21 +625,18 @@
 
 // ---- Glass card ----
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur($glass-blur);
-  -webkit-backdrop-filter: blur($glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: $radius-lg;
+  background: var(--color-surface);
+  border-radius: $radius-sm;
   padding: $space-5;
-  transition: transform $transition-normal, box-shadow $transition-normal;
+  transition: box-shadow $transition-normal;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px var(--shadow-color);
+    box-shadow: 0 4px 16px var(--shadow-color);
   }
 }
 
 .glass-card__title {
+  font-family: $font-family-headline;
   font-size: $font-size-lg;
   font-weight: $font-weight-semibold;
   margin-bottom: $space-2;
@@ -618,6 +644,7 @@
 }
 
 .glass-card__text {
+  font-family: $font-family-document;
   font-size: $font-size-sm;
   color: var(--color-text-muted);
   line-height: 1.6;
@@ -638,6 +665,10 @@
   justify-content: center;
   gap: $space-4;
   margin-bottom: $space-3;
+  font-family: $font-family-headline;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 
   a {
     color: var(--color-text-muted);
@@ -650,6 +681,7 @@
 }
 
 .site-footer__copy {
+  font-family: $font-family-document;
   margin-bottom: 0;
 }
 
@@ -658,17 +690,19 @@
   display: inline-flex;
   align-items: center;
   gap: $space-2;
-  padding: $space-3 $space-5;
+  padding: $space-2 $space-4;
   background: var(--color-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: $radius-md;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
+  border-radius: $radius-sm;
+  font-family: $font-family-headline;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--color-text);
-  transition: background $transition-fast;
+  transition: box-shadow $transition-fast;
   margin-bottom: $space-4;
 
   &:hover {
-    background: var(--hover-bg);
+    box-shadow: 0 2px 8px var(--shadow-color);
   }
 }
