@@ -1,0 +1,4 @@
+{# Skip link — included from base.html if needed separately #}
+{% macro skip_link(lang) %}
+<a class="skip-link" href="#main">{{ trans(key="skip_to_content", lang=lang) | default(value="Zum Inhalt springen") }}</a>
+{% endmacro %}

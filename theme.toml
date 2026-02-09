@@ -1,0 +1,27 @@
+name = "ensemble"
+description = "A clean, document-oriented Zola theme for governance, associations, and collectives. Sidebar navigation, long-form prose, status badges, and PDF/hash verification."
+license = "MIT"
+min_version = "0.19.0"
+demo = "https://collective.die-zukunft.ch"
+
+[author]
+name = "Die Zukunft"
+homepage = "https://die-zukunft.ch"
+
+[extra]
+# Required config.extra keys:
+#   org_name        — Organization name (e.g. "Die Zukunft")
+#   org_subtitle    — Subtitle shown under brand (e.g. "Kollektiv — Governance & Transparenz")
+#   contact_email   — Contact email address
+#   contact_city    — City / location string
+#   nav_sections    — Array of { key, path, icon } for sidebar navigation
+
+# Required translation keys:
+#   nav_home, nav_governance, nav_minutes, nav_finance, nav_policies,
+#   nav_join, nav_volunteer, nav_press, nav_changelog,
+#   footer_impressum, footer_datenschutz, footer_copyright,
+#   skip_to_content, menu_open, menu_close,
+#   aria_toggle_theme, aria_scroll_top,
+#   status_draft, status_ratified, status_superseded,
+#   label_updated, label_pdf_download, label_sha256,
+#   breadcrumb_home, toc_title

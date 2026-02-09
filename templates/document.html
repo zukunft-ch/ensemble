@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# Breadcrumb #}
+{% if page.ancestors %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">{{ trans(key="breadcrumb_home", lang=lang) | default(value="Übersicht") }}</a>
+  {% for ancestor in page.ancestors %}
+    {% if not loop.first %}
+      {% set s = get_section(path=ancestor) %}
+      <span class="breadcrumb__sep">/</span>
+      <a href="{{ s.permalink }}">{{ s.title }}</a>
+    {% endif %}
+  {% endfor %}
+  <span class="breadcrumb__sep">/</span>
+  <span>{{ page.title }}</span>
+</nav>
+{% endif %}
+
+<div class="page-header">
+  <h1 class="page-header__title">{{ page.title }}</h1>
+  {% if page.description %}
+    <p class="page-header__desc">{{ page.description }}</p>
+  {% endif %}
+</div>
+
+{# Meta bar: status, date, updated #}
+{% if page.extra.status or page.date or page.extra.updated %}
+<div class="doc-meta">
+  {% if page.extra.status %}
+    <span class="status-badge status-badge--{{ page.extra.status }}">
+      {{ trans(key="status_" ~ page.extra.status, lang=lang) | default(value=page.extra.status) }}
+    </span>
+  {% endif %}
+  {% if page.date %}
+    <span>{{ page.date | date(format="%d.%m.%Y") }}</span>
+  {% endif %}
+  {% if page.extra.updated %}
+    <span>{{ trans(key="label_updated", lang=lang) | default(value="Aktualisiert") }}: {{ page.extra.updated }}</span>
+  {% endif %}
+</div>
+{% endif %}
+
+{# PDF download #}
+{% if page.extra.pdf_url %}
+<a class="pdf-download" href="{{ page.extra.pdf_url }}" target="_blank" rel="noopener">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  {{ trans(key="label_pdf_download", lang=lang) | default(value="PDF herunterladen") }}
+</a>
+{% endif %}
+
+{# Table of contents #}
+{% if page.toc %}
+<div class="toc">
+  <div class="toc__title">{{ trans(key="toc_title", lang=lang) | default(value="Inhaltsverzeichnis") }}</div>
+  <ul>
+    {% for h in page.toc %}
+      <li>
+        <a href="#{{ h.id }}">{{ h.title }}</a>
+        {% if h.children %}
+          <ul>
+            {% for child in h.children %}
+              <li><a href="#{{ child.id }}">{{ child.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{# Content #}
+<div class="prose">
+  {{ page.content | safe }}
+</div>
+
+{# SHA256 hash #}
+{% if page.extra.pdf_sha256 %}
+<div class="hash-verify">
+  <div class="hash-verify__label">{{ trans(key="label_sha256", lang=lang) | default(value="SHA-256") }}</div>
+  <div class="hash-verify__value">{{ page.extra.pdf_sha256 }}</div>
+</div>
+{% endif %}
+{% endblock %}

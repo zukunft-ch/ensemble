@@ -1,0 +1,10 @@
+{# Simple footer with legal links #}
+{% macro site_footer(lang) %}
+<footer class="site-footer">
+  <div class="site-footer__links">
+    <a href="/governance/">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
+    <a href="/policies/datenschutz/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+  </div>
+  <p class="site-footer__copy">&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | default(value="Die Zukunft") }}. {{ trans(key="footer_copyright", lang=lang) | default(value="Alle Rechte vorbehalten.") }}</p>
+</footer>
+{% endmacro %}

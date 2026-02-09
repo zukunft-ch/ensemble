@@ -1,0 +1,74 @@
+{# ---- Organization — every page ---- #}
+{% macro organization() %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "{{ config.base_url | trim_end_matches(pat='/') }}/#organization",
+  "name": "{{ config.extra.org_name | default(value='Die Zukunft') }}",
+  "url": "{{ config.base_url | trim_end_matches(pat='/') }}",
+  "logo": "{{ config.base_url | trim_end_matches(pat='/') }}/favicon.svg",
+  "email": "{{ config.extra.contact_email | default(value='') }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ config.extra.contact_city | default(value='Basel, Schweiz') }}",
+    "addressCountry": "CH"
+  }
+}
+</script>
+{% endmacro %}
+
+{# ---- WebSite — every page ---- #}
+{% macro website(lang) %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ config.base_url | trim_end_matches(pat='/') }}/#website",
+  "name": "{{ config.extra.org_name | default(value='Die Zukunft') }} — {{ config.extra.org_subtitle | default(value='Kollektiv') }}",
+  "url": "{{ config.base_url | trim_end_matches(pat='/') }}",
+  "inLanguage": "{{ lang }}",
+  "publisher": { "@id": "{{ config.base_url | trim_end_matches(pat='/') }}/#organization" }
+}
+</script>
+{% endmacro %}
+
+{# ---- WebPage — every page ---- #}
+{% macro webpage(title, description, url, lang) %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": {{ title | json_encode() | safe }},
+  "description": {{ description | json_encode() | safe }},
+  "url": {{ url | json_encode() | safe }},
+  "inLanguage": "{{ lang }}",
+  "isPartOf": { "@id": "{{ config.base_url | trim_end_matches(pat='/') }}/#website" },
+  "publisher": { "@id": "{{ config.base_url | trim_end_matches(pat='/') }}/#organization" }
+}
+</script>
+{% endmacro %}
+
+{# ---- BreadcrumbList — content pages ---- #}
+{% macro breadcrumb(title, url, lang) %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "{{ trans(key='breadcrumb_home', lang=lang) | default(value='Übersicht') }}",
+      "item": "{{ config.base_url | trim_end_matches(pat='/') }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ title | json_encode() | safe }},
+      "item": {{ url | json_encode() | safe }}
+    }
+  ]
+}
+</script>
+{% endmacro %}

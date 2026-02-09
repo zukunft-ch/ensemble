@@ -1,0 +1,101 @@
+// =============================================
+// Layout — sidebar + content two-column
+// =============================================
+
+body {
+  display: flex;
+  min-height: 100dvh;
+}
+
+// ---- Sidebar ----
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: $sidebar-width;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: $z-overlay;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  transition: transform $transition-normal;
+
+  @media (max-width: $sidebar-bp) {
+    transform: translateX(-100%);
+
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+}
+
+// ---- Site wrapper (everything right of sidebar) ----
+.site-wrapper {
+  flex: 1;
+  margin-left: $sidebar-width;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  @media (max-width: $sidebar-bp) {
+    margin-left: 0;
+  }
+}
+
+// ---- Mobile topbar ----
+.topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  padding: $space-3 $space-4;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--border-subtle);
+  align-items: center;
+  gap: $space-3;
+
+  @media (max-width: $sidebar-bp) {
+    display: flex;
+  }
+}
+
+.topbar__brand {
+  font-family: $font-family-brandmark;
+  font-weight: 700;
+  font-size: $font-size-lg;
+  text-transform: lowercase;
+  background: linear-gradient(135deg, $gradient-purple, $gradient-blue, $gradient-teal);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  flex: 1;
+}
+
+// ---- Main content area ----
+.site-main {
+  flex: 1;
+  width: 100%;
+  max-width: $max-width-text;
+  margin: 0 auto;
+  padding: $space-6 $space-5;
+
+  @media (max-width: $bp-md) {
+    padding: $space-5 $space-4;
+  }
+}
+
+// ---- Sidebar overlay (mobile backdrop) ----
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-overlay - 1;
+  background: var(--backdrop-bg);
+
+  &.is-open {
+    display: block;
+  }
+}

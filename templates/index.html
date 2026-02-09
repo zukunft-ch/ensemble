@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-header__title">{{ section.title }}</h1>
+  {% if section.description %}
+    <p class="page-header__desc">{{ section.description }}</p>
+  {% endif %}
+</div>
+
+{% if section.extra.sections %}
+<div class="section-grid">
+  {% for item in section.extra.sections %}
+    <a class="section-card" href="{{ item.path }}">
+      {% if item.icon %}<div class="section-card__icon">{{ item.icon }}</div>{% endif %}
+      <div class="section-card__title">{{ item.title }}</div>
+      {% if item.description %}<p class="section-card__desc">{{ item.description }}</p>{% endif %}
+    </a>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

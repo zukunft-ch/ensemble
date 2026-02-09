@@ -1,0 +1,32 @@
+{# Sidebar navigation — built from config.extra.nav_sections #}
+{% macro sidebar_nav(current_path, lang) %}
+<nav class="sidebar" id="sidebar" aria-label="Navigation">
+  <div class="sidebar__brand">
+    <a href="/">
+      <div class="sidebar__wordmark">{{ config.extra.org_name | default(value="Die Zukunft") }}.</div>
+      {% if config.extra.org_subtitle %}
+        <div class="sidebar__subtitle">{{ config.extra.org_subtitle }}</div>
+      {% endif %}
+    </a>
+  </div>
+  <div class="sidebar__nav">
+    <a class="sidebar__link{% if current_path == '/' %} is-active{% endif %}" href="/">
+      <span class="sidebar__icon">&#9776;</span>
+      {{ trans(key="nav_home", lang=lang) | default(value="Übersicht") }}
+    </a>
+    {% if config.extra.nav_sections %}
+      {% for item in config.extra.nav_sections %}
+        <a class="sidebar__link{% if current_path is starting_with(item.path) %} is-active{% endif %}" href="{{ item.path }}">
+          {% if item.icon %}<span class="sidebar__icon">{{ item.icon }}</span>{% endif %}
+          {{ trans(key=item.key, lang=lang) | default(value=item.key) }}
+        </a>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <div class="sidebar__footer">
+    <button class="theme-switch" id="theme-toggle" type="button" aria-label="{{ trans(key='aria_toggle_theme', lang=lang) | default(value='Design umschalten') }}">
+      <span class="theme-switch__thumb"></span>
+    </button>
+  </div>
+</nav>
+{% endmacro %}

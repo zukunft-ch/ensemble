@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default(value='de') }}" {% if config.extra.theme_default | default(value='light') == 'dark' %}data-theme="dark"{% endif %}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ page.title | default(value=section.title | default(value=config.title)) }}{% endblock %} — {{ config.extra.org_name }}</title>
+  <meta name="description" content="{% block description %}{{ page.description | default(value=section.description | default(value=config.description)) }}{% endblock %}">
+
+  {# Early dark-mode script to prevent flash #}
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');})();
+  </script>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/main.css">
+
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+  <a class="skip-link" href="#main">{{ trans(key="skip_to_content", lang=lang) | default(value="Zum Inhalt springen") }}</a>
+
+  {# ---- Sidebar ---- #}
+  {% block sidebar %}
+  <nav class="sidebar" id="sidebar" aria-label="Navigation">
+    <div class="sidebar__brand">
+      <a href="/">
+        <div class="sidebar__wordmark">{{ config.extra.org_name | default(value="Die Zukunft") }}.</div>
+        {% if config.extra.org_subtitle %}
+          <div class="sidebar__subtitle">{{ config.extra.org_subtitle }}</div>
+        {% endif %}
+      </a>
+    </div>
+    <div class="sidebar__nav">
+      <a class="sidebar__link{% if current_path == '/' %} is-active{% endif %}" href="/">
+        <span class="sidebar__icon">&#9776;</span>
+        {{ trans(key="nav_home", lang=lang) | default(value="Übersicht") }}
+      </a>
+      {% if config.extra.nav_sections %}
+        {% for item in config.extra.nav_sections %}
+          <a class="sidebar__link{% if current_path is starting_with(item.path) %} is-active{% endif %}" href="{{ item.path }}">
+            {% if item.icon %}<span class="sidebar__icon">{{ item.icon }}</span>{% endif %}
+            {{ trans(key=item.key, lang=lang) | default(value=item.key) }}
+          </a>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div class="sidebar__footer">
+      <button class="theme-switch" id="theme-toggle" type="button" aria-label="{{ trans(key='aria_toggle_theme', lang=lang) | default(value='Design umschalten') }}">
+        <span class="theme-switch__thumb"></span>
+      </button>
+    </div>
+  </nav>
+  {% endblock %}
+
+  {# ---- Sidebar overlay (mobile) ---- #}
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  {# ---- Site wrapper ---- #}
+  <div class="site-wrapper">
+
+    {# ---- Mobile topbar ---- #}
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebar-open" type="button" aria-label="{{ trans(key='menu_open', lang=lang) | default(value='Menü öffnen') }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a class="topbar__brand" href="/">{{ config.extra.org_name | default(value="Die Zukunft") }}.</a>
+      <button class="theme-switch" id="theme-toggle-mobile" type="button" aria-label="{{ trans(key='aria_toggle_theme', lang=lang) | default(value='Design umschalten') }}">
+        <span class="theme-switch__thumb"></span>
+      </button>
+    </header>
+
+    {# ---- Main content ---- #}
+    <main class="site-main" id="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    {# ---- Footer ---- #}
+    {% block footer %}
+    <footer class="site-footer">
+      <div class="site-footer__links">
+        <a href="/governance/">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
+        <a href="/policies/datenschutz/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+      </div>
+      <p class="site-footer__copy">&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | default(value="Die Zukunft") }}. {{ trans(key="footer_copyright", lang=lang) | default(value="Alle Rechte vorbehalten.") }}</p>
+    </footer>
+    {% endblock %}
+  </div>
+
+  {# ---- Back-to-top ---- #}
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="{{ trans(key='aria_scroll_top', lang=lang) | default(value='Nach oben scrollen') }}">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script>
+    /* Sidebar toggle */
+    (function(){
+      var sidebar=document.getElementById('sidebar'),
+          overlay=document.getElementById('sidebar-overlay'),
+          openBtn=document.getElementById('sidebar-open');
+      function open(){sidebar.classList.add('is-open');overlay.classList.add('is-open');}
+      function close(){sidebar.classList.remove('is-open');overlay.classList.remove('is-open');}
+      if(openBtn)openBtn.addEventListener('click',open);
+      if(overlay)overlay.addEventListener('click',close);
+      document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    })();
+
+    /* Theme toggle */
+    (function(){
+      function toggle(){
+        var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'':'dark';
+        if(t)d.setAttribute('data-theme','dark');else d.removeAttribute('data-theme');
+        localStorage.setItem('theme',t||'light');
+      }
+      var b1=document.getElementById('theme-toggle'),b2=document.getElementById('theme-toggle-mobile');
+      if(b1)b1.addEventListener('click',toggle);
+      if(b2)b2.addEventListener('click',toggle);
+    })();
+
+    /* Back-to-top */
+    (function(){
+      var btn=document.getElementById('back-to-top');
+      if(!btn)return;
+      window.addEventListener('scroll',function(){
+        btn.classList.toggle('is-visible',window.scrollY>400);
+      },{passive:true});
+      btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{# Document metadata macros #}
+
+{# Status badge — inline, no self:: dependency #}
+{% macro status_badge(status, lang) %}
+{% if status %}
+<span class="status-badge status-badge--{{ status }}">
+  {{ trans(key="status_" ~ status, lang=lang) | default(value=status) }}
+</span>
+{% endif %}
+{% endmacro %}
+
+{# Meta bar with status, date, updated — inlines badge to avoid self:: #}
+{% macro meta_bar(page, lang) %}
+{% if page.extra.status or page.date or page.extra.updated %}
+<div class="doc-meta">
+  {% if page.extra.status %}
+    <span class="status-badge status-badge--{{ page.extra.status }}">
+      {{ trans(key="status_" ~ page.extra.status, lang=lang) | default(value=page.extra.status) }}
+    </span>
+  {% endif %}
+  {% if page.date %}
+    <span>{{ page.date | date(format="%d.%m.%Y") }}</span>
+  {% endif %}
+  {% if page.extra.updated %}
+    <span>{{ trans(key="label_updated", lang=lang) | default(value="Aktualisiert") }}: {{ page.extra.updated }}</span>
+  {% endif %}
+</div>
+{% endif %}
+{% endmacro %}
+
+{# Breadcrumb #}
+{% macro breadcrumb(page, lang) %}
+{% if page.ancestors %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">{{ trans(key="breadcrumb_home", lang=lang) | default(value="Übersicht") }}</a>
+  {% for ancestor in page.ancestors %}
+    {% if not loop.first %}
+      {% set s = get_section(path=ancestor) %}
+      <span class="breadcrumb__sep">/</span>
+      <a href="{{ s.permalink }}">{{ s.title }}</a>
+    {% endif %}
+  {% endfor %}
+  <span class="breadcrumb__sep">/</span>
+  <span>{{ page.title }}</span>
+</nav>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# Breadcrumb #}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="/">{{ trans(key="breadcrumb_home", lang=lang) | default(value="Übersicht") }}</a>
+  <span class="breadcrumb__sep">/</span>
+  <span>{{ section.title }}</span>
+</nav>
+
+<div class="page-header">
+  <h1 class="page-header__title">{{ section.title }}</h1>
+  {% if section.description %}
+    <p class="page-header__desc">{{ section.description }}</p>
+  {% endif %}
+</div>
+
+{% if section.pages %}
+<div class="doc-list">
+  {% for pg in section.pages %}
+    <a class="doc-card" href="{{ pg.permalink }}">
+      <div class="doc-card__header">
+        <span class="doc-card__title">{{ pg.title }}</span>
+        {% if pg.extra.status %}
+          <span class="status-badge status-badge--{{ pg.extra.status }}">{{ pg.extra.status }}</span>
+        {% endif %}
+      </div>
+      {% if pg.description %}
+        <p class="doc-card__desc">{{ pg.description }}</p>
+      {% endif %}
+      {% if pg.date %}
+        <div class="doc-card__date">{{ pg.date | date(format="%d.%m.%Y") }}</div>
+      {% endif %}
+    </a>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if section.subsections %}
+<div class="doc-list" style="margin-top: 2rem;">
+  {% for sub in section.subsections %}
+    {% set s = get_section(path=sub) %}
+    <a class="doc-card" href="{{ s.permalink }}">
+      <div class="doc-card__header">
+        <span class="doc-card__title">{{ s.title }}</span>
+      </div>
+      {% if s.description %}
+        <p class="doc-card__desc">{{ s.description }}</p>
+      {% endif %}
+    </a>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
