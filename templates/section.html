@@ -28,7 +28,7 @@
       <div class="doc-card__header">
         <span class="doc-card__title">{{ pg.title }}</span>
         {% if pg.extra.status %}
-          <span class="status-badge status-badge--{{ pg.extra.status }}">{{ pg.extra.status }}</span>
+          <span class="status-badge status-badge--{{ pg.extra.status }}">{{ trans(key="status_" ~ pg.extra.status, lang=lang) | default(value=pg.extra.status) }}</span>
         {% endif %}
       </div>
       {% if pg.description %}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/icons.html" as icons %}
 
 {% block content %}
 {% if section.content %}
@@ -19,7 +20,7 @@
   </a>
   <a class="gh-btn" href="{{ config.extra.repo_url }}/issues/new?template=policy-change.yml" target="_blank" rel="noopener">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-    Policy-Änderung
+    Richtlinie ändern
   </a>
   <a class="gh-btn gh-btn--secondary" href="{{ config.extra.repo_url }}/discussions" target="_blank" rel="noopener">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
@@ -32,7 +33,7 @@
 <div class="section-grid">
   {% for item in section.extra.sections %}
     <a class="section-card" href="{{ item.path }}">
-      {% if item.icon %}<div class="section-card__icon">{{ item.icon }}</div>{% endif %}
+      {% if item.icon %}<div class="section-card__icon">{{ icons::icon(name=item.icon) }}</div>{% endif %}
       <div class="section-card__title">{{ item.title }}</div>
       {% if item.description %}<p class="section-card__desc">{{ item.description }}</p>{% endif %}
     </a>

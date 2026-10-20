@@ -10,6 +10,32 @@
   src: url("/fonts/MozillaHeadline-Variable.woff2") format("woff2");
 }
 
+// Switzer (headings) + Clash Display (brandmark) — self-hosted, same files as avenir.
+// Fontshare fonts, ITF Free Font License (self-hosting permitted).
+@font-face {
+  font-family: "Switzer";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/switzer-variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Clash Display";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/clash-display-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Clash Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/clash-display-700.woff2") format("woff2");
+}
+
 body {
   font-family: $font-family;
   font-weight: $font-weight-normal;
@@ -51,7 +77,7 @@ strong {
   font-weight: $font-weight-semibold;
 }
 
-// ---- Document content area: serif body ----
+// ---- Document content area ----
 .site-main {
   font-family: $font-family-document;
   font-size: $font-size-base;
@@ -101,8 +127,9 @@ strong {
     padding-left: $space-5;
     margin: $space-6 0;
     color: var(--color-text-muted);
-    font-style: italic;
+    font-family: $font-family-headline;
     font-size: $font-size-lg;
+    line-height: 1.5;
   }
 
   code {

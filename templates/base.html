@@ -1,3 +1,4 @@
+{% import "macros/icons.html" as icons %}
 <!DOCTYPE html>
 <html lang="{{ lang | default(value='de') }}" {% if config.extra.theme_default | default(value='light') == 'dark' %}data-theme="dark"{% endif %}>
 <head>
@@ -12,11 +13,14 @@
   </script>
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/MozillaHeadline-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/switzer-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/main.css">
 
   {% block head_extra %}{% endblock %}
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="icon-gradient" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22"><stop offset="0" stop-color="#a855f7"/><stop offset=".5" stop-color="#3b82f6"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
 
   <a class="skip-link" href="#main">{{ trans(key="skip_to_content", lang=lang) | default(value="Zum Inhalt springen") }}</a>
 
@@ -33,19 +37,20 @@
     </div>
     <div class="sidebar__nav">
       <a class="sidebar__link{% if current_path == '/' %} is-active{% endif %}" href="/">
-        <span class="sidebar__icon">&#9776;</span>
+        <span class="sidebar__icon">{{ icons::icon(name="home") }}</span>
         {{ trans(key="nav_home", lang=lang) | default(value="Übersicht") }}
       </a>
       {% if config.extra.nav_sections %}
         {% for item in config.extra.nav_sections %}
           <a class="sidebar__link{% if current_path is starting_with(item.path) %} is-active{% endif %}" href="{{ item.path }}">
-            {% if item.icon %}<span class="sidebar__icon">{{ item.icon }}</span>{% endif %}
+            {% if item.icon %}<span class="sidebar__icon">{{ icons::icon(name=item.icon) }}</span>{% endif %}
             {{ trans(key=item.key, lang=lang) | default(value=item.key) }}
           </a>
         {% endfor %}
       {% endif %}
     </div>
     <div class="sidebar__footer">
+      <span class="sidebar__theme-label" aria-hidden="true">{{ trans(key="label_dark_mode", lang=lang) | default(value="Dunkles Design") }}</span>
       <button class="theme-switch" id="theme-toggle" type="button" aria-label="{{ trans(key='aria_toggle_theme', lang=lang) | default(value='Design umschalten') }}">
         <span class="theme-switch__thumb"></span>
       </button>
@@ -79,8 +84,9 @@
     {% block footer %}
     <footer class="site-footer">
       <div class="site-footer__links">
-        <a href="/governance/">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
-        <a href="/policies/datenschutz/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+        <a href="https://die-zukunft.ch/impressum/">{{ trans(key="footer_impressum", lang=lang) | default(value="Impressum") }}</a>
+        <a href="/policies/privacy/">{{ trans(key="footer_datenschutz", lang=lang) | default(value="Datenschutz") }}</a>
+        <a href="https://die-zukunft.ch/">die-zukunft.ch</a>
       </div>
       <p class="site-footer__copy">&copy; {{ now() | date(format="%Y") }} {{ config.extra.org_name | default(value="Die Zukunft") }}. {{ trans(key="footer_copyright", lang=lang) | default(value="Alle Rechte vorbehalten.") }}</p>
     </footer>

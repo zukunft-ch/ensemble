@@ -14,8 +14,10 @@ $glass-blur:        20px;
 $font-family: "Mozilla Headline", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-family-headline: "Switzer", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-family-brandmark: "Clash Display", sans-serif;
-$font-family-document: "IBM Plex Mono", "SF Mono", "Fira Code", monospace;
-$font-family-mono: "IBM Plex Mono", "SF Mono", "Fira Code", "Courier New", monospace;
+// Documents read in the brand text face; monospace is reserved for metadata, hashes and code.
+// System monospace stack: no web font download, no third-party origin.
+$font-family-document: $font-family;
+$font-family-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
 // Fluid type scale (375px → 1440px)
 $font-size-xs:    clamp(0.75rem, 0.7rem + 0.15vw, 0.875rem);

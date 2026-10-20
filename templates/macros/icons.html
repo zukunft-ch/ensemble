@@ -1,0 +1,21 @@
+{#
+  Line icons for the `icon` fields in config.extra.nav_sections and the landing-page cards.
+  Content keeps its emoji as the stable key; each known emoji renders as a 24px line icon
+  (stroke colour set by CSS: currentColor in the sidebar, #icon-gradient on cards — the
+  gradient is defined once in base.html). Unknown values fall back to the raw text.
+  Same approach as avenir's macros/icons.html.
+#}
+{% macro icon(name) %}
+{%- if name == "home" -%}{% set d = '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' %}
+{%- elif name is starting_with("⚖") -%}{% set d = '<path d="M12 3v18"/><path d="M7 21h10"/><path d="M4 7h16"/><path d="M12 5l-8 2"/><path d="M12 5l8 2"/><path d="M4 7l-2.5 6a3 3 0 0 0 5 0z"/><path d="M20 7l-2.5 6a3 3 0 0 0 5 0z"/>' %}
+{%- elif name is starting_with("📋") -%}{% set d = '<rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="M9 11h6"/><path d="M9 15h6"/><path d="M9 19h3"/>' %}
+{%- elif name is starting_with("💰") -%}{% set d = '<circle cx="8" cy="8" r="6"/><path d="M18.1 10.4a6 6 0 1 1-7.7 7.6"/><path d="M7 6h1v4"/><path d="m16.7 13.9.7.7-2.8 2.8"/>' %}
+{%- elif name is starting_with("📜") -%}{% set d = '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/>' %}
+{%- elif name is starting_with("🤝") -%}{% set d = '<circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M19 8v6"/><path d="M22 11h-6"/>' %}
+{%- elif name is starting_with("🙋") -%}{% set d = '<path d="M18 11V6a2 2 0 0 0-4 0v1"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.9-6-2.4l-3.6-3.6a2 2 0 0 1 2.8-2.8L7 15"/>' %}
+{%- elif name is starting_with("📰") -%}{% set d = '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8z"/>' %}
+{%- elif name is starting_with("🔄") -%}{% set d = '<path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>' %}
+{%- else -%}{% set d = '' %}
+{%- endif -%}
+{%- if d -%}<svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">{{ d | safe }}</svg>{%- else -%}{{ name }}{%- endif -%}
+{% endmacro icon %}

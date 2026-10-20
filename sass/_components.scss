@@ -104,6 +104,24 @@
   flex-shrink: 0;
   width: 1.5rem;
   text-align: center;
+  display: inline-flex;
+  justify-content: center;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+  }
+
+  .is-active & svg {
+    stroke: url(#icon-gradient);
+  }
+}
+
+.sidebar__theme-label {
+  font-size: $font-size-sm;
+  color: var(--color-text-muted);
 }
 
 .sidebar__footer {
@@ -367,7 +385,8 @@
   gap: $space-2;
   padding: $space-5;
   background: var(--color-surface);
-  border-radius: $radius-sm;
+  border: 1px solid var(--border-subtle);
+  border-radius: $radius-md;
   transition: box-shadow $transition-normal;
 
   &:hover {
@@ -378,6 +397,13 @@
 .section-card__icon {
   font-size: $font-size-2xl;
   line-height: 1;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke: url(#icon-gradient);
+  }
 }
 
 .section-card__title {
@@ -727,6 +753,14 @@
   font-size: $font-size-sm;
 }
 
+.site-footer__links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $space-2 $space-5;
+  margin-bottom: $space-3;
+}
+
 .site-footer__copy {
   font-family: $font-family-document;
   font-size: $font-size-xs;
@@ -747,17 +781,16 @@
   gap: $space-2;
   padding: $space-2 $space-4;
   font-family: $font-family-headline;
-  font-size: $font-size-xs;
+  font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border-radius: $radius-sm;
-  background: var(--color-accent);
+  border-radius: $radius-pill;
+  // Brandmark gradient (deeper stops so white text passes AA) — matches avenir .btn
+  background: linear-gradient(135deg, #9333ea 0%, #2563eb 100%);
   color: #fff;
-  transition: background $transition-fast;
+  transition: filter $transition-fast;
 
   &:hover {
-    background: var(--color-accent-hover);
+    filter: brightness(0.92);
     color: #fff;
   }
 
@@ -772,6 +805,7 @@
   border: 1px solid var(--border-subtle);
 
   &:hover {
+    filter: none;
     background: var(--hover-bg);
     color: var(--color-text);
   }
